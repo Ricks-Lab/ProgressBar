@@ -1,2 +1,2 @@
-# ProbabilityContour
-Generate probability contour for overlapping distribution of binary data
+# ProgressBar
+Text based progress bar.
