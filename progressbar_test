@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+""" PBmodules  -  Pogress Bar Class
+
+    Copyright (C) 2023  RicksLab
+
+    This program is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option)
+    any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+    more details.
+
+    You should have received a copy of the GNU General Public License along with
+    this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+__author__ = 'RicksLab'
+__copyright__ = 'Copyright (C) 2023 RicksLab'
+__license__ = 'GNU General Public License'
+__program_name__ = 'ProgressBar-Module'
+__maintainer__ = 'RicksLab'
+__docformat__ = 'reStructuredText'
+
+# pylint: disable=multiple-statements
+# pylint: disable=line-too-long
+# pylint: disable=consider-using-f-string
+# pylint: disable=bad-continuation
+
+import argparse
+import sys
+from time import sleep
+import PBmodules.PBmodule as PB
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--about', help='README', action='store_true', default=False)
+    parser.add_argument('--bar_length', help='max length of complete bar', type=int, default=100)
+    parser.add_argument('--bar_character', help='character used to display bar', type=str, default='#')
+    parser.add_argument('--total_items', help='number of items', type=int, default=100)
+    args = parser.parse_args()
+
+    print('{}'.format(args.bar_character.ljust(args.bar_length, args.bar_character)))
+    perf_bar = PB.ProgressBar(bar_length=args.bar_length, bar_character=args.bar_character)
+    for i in range(0, args.total_items):
+        print(perf_bar.update(i, args.total_items), end='')
+        sys.stdout.flush()
+        sleep(0.1)
+    print(perf_bar.elapsed_time())
+
+
+if __name__ == '__main__':
+    main()
