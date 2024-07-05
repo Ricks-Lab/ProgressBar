@@ -58,15 +58,14 @@ class ProgressBar:
         :return: a string of the additional progress.
         """
         end_str = ''
-        if completed_items >= total_items - 1:
+        if completed_items >= total_items:
             completed_items = total_items
             self.end_time = datetime.now()
             end_str = '\n'
         completion_length = int(self.bar_length * completed_items/total_items)
         increment_length = completion_length - self.prev_completion_length
         self.prev_completion_length = completion_length
-        if increment_length < 1:
-            return ''
+        if increment_length < 1: return ''
         return '{}{}'.format(''.ljust(increment_length, self.bar_character), end_str)
 
     def elapsed_time(self, seconds: bool = False) -> Union[str, int]:
